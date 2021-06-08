@@ -10,11 +10,16 @@ function editNav() {
 // DOM Elements
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
+const modalBody = document.querySelector(".modal-body");
+const modalSuccess = document.querySelector(".modal-success");
 const modalClose = document.querySelectorAll(".close");
 const formData = document.querySelectorAll(".formData");
 
 // launch modal form
 const launchModal = () => {
+  // reset modal success if needed
+  modalSuccess.style.display = "none";
+  // then open modal form
   modalbg.style.display = "block";
 };
 
@@ -41,7 +46,7 @@ const isRadioChecked = (arr) => {
 };
 
 // form validation
-const validate = () => {
+const validate = (params) => {
   let first = document.getElementById("first").value;
   let last = document.getElementById("last").value;
   let email = document.getElementById("email").value;
@@ -50,15 +55,13 @@ const validate = () => {
   let radios = document.getElementsByName("location");
   let checkBox = document.getElementById("checkbox1").checked;
 
-  console.log(radios);
-
   let valid = true;
 
   let namereg = /^[a-zA-Z][a-zA-Z- ]+[a-zA-Z]$/;
   let emailreg = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+[a-zA-Z]{2,}$/;
 
-  // reset error messages
-  [
+  // all form inputs
+  const formInputs = [
     "label-first",
     "label-last",
     "label-email",
@@ -66,7 +69,10 @@ const validate = () => {
     "label-quantity",
     "messsage-checked",
     "messsage-checkbox1",
-  ].forEach((element) => {
+  ];
+
+  // reset error messages
+  formInputs.forEach((element) => {
     if (document.getElementById(element)) {
       document.getElementById(element).style.display = "none";
     }
@@ -139,5 +145,20 @@ const validate = () => {
     valid = false;
   }
 
-  return valid;
+  // final modal if valid form
+  if (valid) {
+    modalSuccess.style.display = "block";
+    modalSuccess.innerHTML = `<div class="modal-success-text">Merci ! Votre réservation a été reçue.</div><button class="btn-submit button btn-close">Close</button>`;
+
+    const btnClose = document.querySelector(".btn-close");
+
+    if (btnClose) {
+      btnClose.addEventListener("click", closeModal);
+    }
+
+    // TODO: send each formInputs value somewhere to be saved
+  }
+
+  // return false to prevent default action
+  return false;
 };
