@@ -60,22 +60,9 @@ const validate = (params) => {
   let namereg = /^[a-zA-Z][a-zA-Z- ]+[a-zA-Z]$/;
   let emailreg = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+[a-zA-Z]{2,}$/;
 
-  // all form inputs
-  const formInputs = [
-    "label-first",
-    "label-last",
-    "label-email",
-    "label-birthdate",
-    "label-quantity",
-    "messsage-checked",
-    "messsage-checkbox1",
-  ];
-
   // reset error messages
-  formInputs.forEach((element) => {
-    if (document.getElementById(element)) {
-      document.getElementById(element).style.display = "none";
-    }
+  document.querySelectorAll(".err-txt").forEach((element) => {
+    element.style.display = "none";
   });
 
   // check errors
@@ -155,6 +142,16 @@ const validate = (params) => {
     if (btnClose) {
       btnClose.addEventListener("click", closeModal);
     }
+
+    // reset form input values
+    document.querySelectorAll(".text-control").forEach((element) => {
+      element.value = "";
+    });
+
+    // reset form radio values
+    radios.forEach((element) => {
+      element.checked = false;
+    });
 
     // TODO: send each formInputs value somewhere to be saved
   }
