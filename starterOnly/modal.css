@@ -40,9 +40,6 @@ img {
 .header-logo {
   float: left;
 }
-/* .main-navbar {
-  float: right;
-} */
 
 .topnav {
   display: flex;
@@ -129,7 +126,9 @@ img {
     padding: 2rem 1rem;
   }
   .topnav.responsive .main-navbar {
-    padding-top: 3rem;
+    padding-top: 4rem;
+    text-align-last: center;
+    align-self: center;
   }
   .topnav.responsive .icon {
     position: absolute;
@@ -191,7 +190,6 @@ main {
 }
 
 /* Modal form */
-
 .button {
   background: #fe142f;
   margin-top: 0.5em;
@@ -223,7 +221,7 @@ main {
 }
 
 .content {
-  top: 90px;
+  top: 35px;
   margin: auto;
   width: 100%;
   max-width: 500px;
@@ -411,6 +409,7 @@ input {
   cursor: pointer;
   border: 0;
 }
+
 /* custom select styles */
 .custom-select {
   position: relative;
@@ -518,8 +517,6 @@ input {
   white-space: nowrap;
 }
 .hero-text {
-  width: 146%;
-  font-weight: 1rem;
   margin-top: 57px;
   padding: 0;
 }
@@ -567,11 +564,24 @@ footer {
   .topnav .icon {
     font-size: 3rem;
   }
+  .topnav.responsive .icon {
+    font-size: 2rem;
+    right: 4rem;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .main-navbar {
+    padding-left: 13rem;
+  }
 }
 
 @media screen and (max-width: 800px) {
   body {
     max-width: 100%;
+  }
+  .content {
+    top: 90px;
   }
   .topnav a.icon {
     display: block;
@@ -603,7 +613,6 @@ footer {
   }
   .hero-text {
     width: unset;
-    font-size: 1rem;
     padding: 0 0 1.5rem;
     margin-top: 1.5rem;
   }
