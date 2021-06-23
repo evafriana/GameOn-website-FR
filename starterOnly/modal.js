@@ -159,6 +159,16 @@ const validate = () => {
       btnClose.addEventListener("click", closeModal);
     }
 
+    // reset form input values
+    document.querySelectorAll(".text-control").forEach((element) => {
+      element.value = "";
+    });
+
+    // reset form radio values
+    radios.forEach((element) => {
+      element.checked = false;
+    });
+
     // TODO: send each formInputs value somewhere to be saved
     // then reset inputs
     document

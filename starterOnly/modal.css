@@ -8,8 +8,8 @@
   margin: 0;
   padding: 0;
 }
-/* Landing Page */
 
+/* Landing Page */
 body {
   display: flex;
   flex-direction: column;
@@ -100,6 +100,18 @@ img {
   body {
     padding: 0px;
   }
+
+  .topnav {
+    display: flex;
+    align-content: flex-start;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: white;
+    width: 100%;
+  }
   .topnav a {
     display: none;
   }
@@ -128,6 +140,9 @@ img {
     float: none;
     display: block;
     text-align: left;
+  }
+  img {
+    width: 142px;
   }
 }
 
@@ -208,7 +223,8 @@ main {
 }
 
 .content {
-  margin: 24% auto;
+  top: 90px;
+  margin: auto;
   width: 100%;
   max-width: 500px;
   animation-name: modalopen;
@@ -292,6 +308,7 @@ input {
   font-size: 0.4em;
   color: red;
 } */
+
 .checkbox-label,
 .checkbox2-label {
   position: relative;
@@ -553,6 +570,9 @@ footer {
 }
 
 @media screen and (max-width: 800px) {
+  body {
+    max-width: 100%;
+  }
   .topnav a.icon {
     display: block;
     color: #f20;
@@ -583,11 +603,12 @@ footer {
   }
   .hero-text {
     width: unset;
+    font-size: 1rem;
+    padding: 0 0 1.5rem;
     margin-top: 1.5rem;
   }
   .hero-img img {
     border-radius: 10px;
-    margin-top: 40px;
   }
   .hero-section > .btn-signup {
     display: block;
