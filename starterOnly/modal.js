@@ -1,11 +1,14 @@
-function editNav() {
-  var x = document.getElementById("myTopnav");
-  if (x.className === "topnav") {
-    x.className += " responsive";
+// Topnav menu open management
+const editNav = () => {
+  const myTopnav = document.getElementById("myTopnav");
+  if (myTopnav.className === "topnav") {
+    document.body.style.overflowY = "hidden";
+    myTopnav.className += " responsive";
   } else {
-    x.className = "topnav";
+    document.body.style.overflowY = "";
+    myTopnav.className = "topnav";
   }
-}
+};
 
 // DOM Elements
 const modalbg = document.querySelector(".bground");
@@ -46,85 +49,85 @@ const isRadioChecked = (arr) => {
 };
 
 // form validation
-const validate = (params) => {
-  let first = document.getElementById("first").value;
-  let last = document.getElementById("last").value;
-  let email = document.getElementById("email").value;
-  let birthdate = document.getElementById("birthdate").value;
-  let quantity = document.getElementById("quantity").value;
-  let radios = document.getElementsByName("location");
-  let checkBox = document.getElementById("checkbox1").checked;
+const validate = () => {
+  const first = document.getElementById("first");
+  const last = document.getElementById("last");
+  const email = document.getElementById("email");
+  const birthdate = document.getElementById("birthdate");
+  const quantity = document.getElementById("quantity");
+  const radios = document.getElementsByName("location");
+  const checkBox = document.getElementById("checkbox1").checked;
+
+  const namereg = /^[a-zA-Z][a-zA-Z- ]+[a-zA-Z]$/;
+  const emailreg = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+[a-zA-Z]{2,}$/;
 
   let valid = true;
 
-  let namereg = /^[a-zA-Z][a-zA-Z- ]+[a-zA-Z]$/;
-  let emailreg = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+[a-zA-Z]{2,}$/;
-
-  // all form inputs
-  const formInputs = [
-    "label-first",
-    "label-last",
-    "label-email",
-    "label-birthdate",
-    "label-quantity",
-    "messsage-checked",
-    "messsage-checkbox1",
-  ];
-
   // reset error messages
-  formInputs.forEach((element) => {
-    if (document.getElementById(element)) {
-      document.getElementById(element).style.display = "none";
-    }
+  document.querySelectorAll(".err-txt").forEach((element) => {
+    element.style.display = "none";
+  });
+
+  // reset border color
+  [first, last, email, birthdate, quantity].forEach((input) => {
+    input.style.border = "";
   });
 
   // check errors
-  if (!first.match(namereg)) {
+  if (!first.value.match(namereg)) {
+    first.style.border = "solid #f20";
     document.getElementById("label-first").style.display = "inline";
     document.getElementById("label-first").innerHTML =
       "Le prénom n'est pas valide";
     valid = false;
   }
-  if (first.trim() === "") {
+  if (first.value.trim() === "") {
+    first.style.border = "solid #f20";
     document.getElementById("label-first").style.display = "inline";
     document.getElementById("label-first").innerHTML =
       "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
     valid = false;
   }
 
-  if (!last.match(namereg)) {
+  if (!last.value.match(namereg)) {
+    last.style.border = "solid #f20";
     document.getElementById("label-last").style.display = "inline";
     document.getElementById("label-last").innerHTML = "Le nom n'est pas valide";
     valid = false;
   }
-  if (last.trim() === "") {
+  if (last.value.trim() === "") {
+    last.style.border = "solid #f20";
     document.getElementById("label-last").style.display = "inline";
     document.getElementById("label-last").innerHTML =
       "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
     valid = false;
   }
 
-  if (!email.match(emailreg)) {
+  if (!email.value.match(emailreg)) {
+    email.style.border = "solid #f20";
     document.getElementById("label-email").style.display = "inline";
     document.getElementById("label-email").innerHTML =
       "Veuillez entrer un email valide.";
     valid = false;
   }
-  if (email.trim() === "") {
+  if (email.value.trim() === "") {
+    email.style.border = "solid #f20";
     document.getElementById("label-email").style.display = "inline";
     document.getElementById("label-email").innerHTML =
       "Veuillez entrer un email.";
     valid = false;
   }
 
-  if (birthdate.trim() === "") {
+  if (birthdate.value.trim() === "") {
+    birthdate.style.border = "solid #f20";
     document.getElementById("label-birthdate").style.display = "inline";
     document.getElementById("label-birthdate").innerHTML =
       "Veuillez entrer votre date de naissance.";
     valid = false;
   }
 
-  if (quantity.trim() === "") {
+  if (quantity.value.trim() === "") {
+    quantity.style.border = "solid #f20";
     document.getElementById("label-quantity").style.display = "inline";
     document.getElementById("label-quantity").innerHTML =
       "Veuillez entrer un numero.";
@@ -157,6 +160,14 @@ const validate = (params) => {
     }
 
     // TODO: send each formInputs value somewhere to be saved
+    // then reset inputs
+    document
+      .querySelectorAll(".text-control")
+      .forEach((input) => (input.value = ""));
+    document
+      .querySelectorAll(".checkbox-input")
+      .forEach((checkbox) => (checkbox.checked = false));
+    document.getElementById("checkbox1").checked = true;
   }
 
   // return false to prevent default action
