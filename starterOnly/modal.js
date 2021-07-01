@@ -63,75 +63,71 @@ const validate = () => {
 
   let valid = true;
 
+  // Validate birth date some time before today's date
+  const validateBirthdate = (str) => {
+    const date = Date.parse(str);
+    const now = new Date();
+
+    return date > now;
+  };
+
   // reset error messages
   document.querySelectorAll(".err-txt").forEach((element) => {
     element.style.display = "none";
   });
 
   // reset border color
-  [first, last, email, birthdate, quantity].forEach((input) => {
-    input.style.border = "";
+  document.querySelectorAll(".formData").forEach((element) => {
+    element.dataset.errorVisible = false;
   });
 
   // check errors
-  if (!first.value.match(namereg)) {
-    first.style.border = "solid #f20";
-    document.getElementById("label-first").style.display = "inline";
-    document.getElementById("label-first").innerHTML =
-      "Le prénom n'est pas valide";
+  const handleErrors = ({ element, name, message }) => {
+    element.parentElement.dataset.errorVisible = true;
+    document.getElementById(`label-${name}`).style.display = "inline";
+    document.getElementById(`label-${name}`).innerHTML = message;
     valid = false;
+  };
+
+  if (!first.value.match(namereg)) {
+    const message = "Le prénom n'est pas valide";
+    handleErrors({ element: first, name: "first", message });
   }
   if (first.value.trim() === "") {
-    first.style.border = "solid #f20";
-    document.getElementById("label-first").style.display = "inline";
-    document.getElementById("label-first").innerHTML =
-      "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
-    valid = false;
+    const message = "Veuillez entrer 2 caractères ou plus pour le champ du nom";
+    handleErrors({ element: first, name: "first", message });
   }
 
   if (!last.value.match(namereg)) {
-    last.style.border = "solid #f20";
-    document.getElementById("label-last").style.display = "inline";
-    document.getElementById("label-last").innerHTML = "Le nom n'est pas valide";
-    valid = false;
+    const message = "Le nom n'est pas valide";
+    handleErrors({ element: last, name: "last", message });
   }
   if (last.value.trim() === "") {
-    last.style.border = "solid #f20";
-    document.getElementById("label-last").style.display = "inline";
-    document.getElementById("label-last").innerHTML =
-      "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
-    valid = false;
+    const message = "Veuillez entrer 2 caractères ou plus pour le champ du nom";
+    handleErrors({ element: last, name: "last", message });
   }
 
   if (!email.value.match(emailreg)) {
-    email.style.border = "solid #f20";
-    document.getElementById("label-email").style.display = "inline";
-    document.getElementById("label-email").innerHTML =
-      "Veuillez entrer un email valide.";
-    valid = false;
+    const message = "Veuillez entrer un email valide";
+    handleErrors({ element: email, name: "email", message });
   }
   if (email.value.trim() === "") {
-    email.style.border = "solid #f20";
-    document.getElementById("label-email").style.display = "inline";
-    document.getElementById("label-email").innerHTML =
-      "Veuillez entrer un email.";
-    valid = false;
+    const message = "Veuillez entrer un email";
+    handleErrors({ element: email, name: "email", message });
   }
 
+  if (validateBirthdate(birthdate.value.trim())) {
+    const message = "Enter a valid birth date";
+    handleErrors({ element: birthdate, name: "birthdate", message });
+  }
   if (birthdate.value.trim() === "") {
-    birthdate.style.border = "solid #f20";
-    document.getElementById("label-birthdate").style.display = "inline";
-    document.getElementById("label-birthdate").innerHTML =
-      "Veuillez entrer votre date de naissance.";
-    valid = false;
+    const message = "Veuillez entrer votre date de naissance";
+    handleErrors({ element: birthdate, name: "birthdate", message });
   }
 
   if (quantity.value.trim() === "") {
-    quantity.style.border = "solid #f20";
-    document.getElementById("label-quantity").style.display = "inline";
-    document.getElementById("label-quantity").innerHTML =
-      "Veuillez entrer un numero.";
-    valid = false;
+    const message = "Veuillez entrer un numero";
+    handleErrors({ element: quantity, name: "quantity", message });
   }
 
   if (!isRadioChecked(radios)) {
