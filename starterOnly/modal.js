@@ -23,7 +23,7 @@ const launchModal = () => {
   // reset modal success if needed
   modalSuccess.style.display = "none";
   // then open modal form
-  modalbg.style.display = "block";
+  modalbg.style.display = "flex";
 };
 
 // launch modal event

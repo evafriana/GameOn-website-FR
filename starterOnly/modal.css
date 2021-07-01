@@ -112,9 +112,9 @@ img {
   .topnav a {
     display: none;
   }
-  .topnav a:hover {
+  /* .topnav a:hover {
     background-color: #fff;
-  }
+  } */
   .topnav.responsive {
     position: fixed;
     overflow: hidden;
@@ -131,6 +131,7 @@ img {
     align-self: center;
   }
   .topnav.responsive .icon {
+    background-color: white;
     position: absolute;
     right: 1rem;
     top: 1rem;
@@ -584,6 +585,7 @@ footer {
     top: 90px;
   }
   .topnav a.icon {
+    background: white;
     display: block;
     color: #f20;
     padding-right: 0;
