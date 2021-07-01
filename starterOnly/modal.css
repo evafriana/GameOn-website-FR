@@ -157,6 +157,9 @@ img {
   .hero-text {
     font-size: 1rem;
   }
+  .content {
+    top: 90px;
+  }
 }
 
 main {
@@ -222,7 +225,6 @@ main {
 }
 
 .content {
-  top: 35px;
   margin: auto;
   width: 100%;
   max-width: 500px;
@@ -580,9 +582,6 @@ footer {
 @media screen and (max-width: 800px) {
   body {
     max-width: 100%;
-  }
-  .content {
-    top: 90px;
   }
   .topnav a.icon {
     background: white;
