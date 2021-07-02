@@ -88,8 +88,6 @@ img {
 .err-txt {
   display: none;
   font-size: 13px;
-  padding: 10px 5px;
-  margin-bottom: 10px;
   color: #f20;
 }
 
@@ -159,6 +157,9 @@ img {
   }
   .content {
     top: 90px;
+  }
+  .err-txt {
+    font-size: 11px;
   }
 }
 
