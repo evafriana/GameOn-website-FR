@@ -32,6 +32,7 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 // close modal form
 const closeModal = () => {
   modalbg.style.display = "none";
+  resetModal();
 };
 
 // close modal event
@@ -48,6 +49,18 @@ const isRadioChecked = (arr) => {
   return res;
 };
 
+const resetModal = () => {
+  // reset error messages
+  document.querySelectorAll(".err-txt").forEach((element) => {
+    element.style.display = "none";
+  });
+
+  // reset border color
+  document.querySelectorAll(".formData").forEach((element) => {
+    element.dataset.errorVisible = false;
+  });
+};
+
 // form validation
 const validate = () => {
   const first = document.getElementById("first");
@@ -59,11 +72,15 @@ const validate = () => {
   const checkBox = document.getElementById("checkbox1").checked;
 
   const namereg = /^[a-zA-Z][a-zA-Z- ]+[a-zA-Z]$/;
-  const emailreg = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+[a-zA-Z]{2,}$/;
+  const emailreg = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+[.]+[a-zA-Z]{2,}$/;
 
   let valid = true;
 
   // Validate birth date some time before today's date
+  /**
+   * @param {string} str birthdate
+   * @return {boolean}
+   */
   const validateBirthdate = (str) => {
     const date = Date.parse(str);
     const now = new Date();
@@ -71,21 +88,19 @@ const validate = () => {
     return date > now;
   };
 
-  // reset error messages
-  document.querySelectorAll(".err-txt").forEach((element) => {
-    element.style.display = "none";
-  });
-
-  // reset border color
-  document.querySelectorAll(".formData").forEach((element) => {
-    element.dataset.errorVisible = false;
-  });
+  resetModal();
 
   // check errors
+  /**
+   * @param {HTMLElement} element DOM element
+   * @param {string} name name of the element (label)
+   * @param {string} message error message
+   */
   const handleErrors = ({ element, name, message }) => {
     element.parentElement.dataset.errorVisible = true;
-    document.getElementById(`label-${name}`).style.display = "inline";
-    document.getElementById(`label-${name}`).innerHTML = message;
+    const errorLabel = document.getElementById(`label-${name}`);
+    errorLabel.style.display = "inline";
+    errorLabel.innerHTML = message;
     valid = false;
   };
 
@@ -93,7 +108,7 @@ const validate = () => {
     const message = "Le prénom n'est pas valide";
     handleErrors({ element: first, name: "first", message });
   }
-  if (first.value.trim() === "") {
+  if (first.value.trim().length < 2) {
     const message = "Veuillez entrer 2 caractères ou plus pour le champ du nom";
     handleErrors({ element: first, name: "first", message });
   }
@@ -102,12 +117,12 @@ const validate = () => {
     const message = "Le nom n'est pas valide";
     handleErrors({ element: last, name: "last", message });
   }
-  if (last.value.trim() === "") {
+  if (last.value.trim().length < 2) {
     const message = "Veuillez entrer 2 caractères ou plus pour le champ du nom";
     handleErrors({ element: last, name: "last", message });
   }
 
-  if (!email.value.match(emailreg)) {
+  if (!emailreg.test(email.value)) {
     const message = "Veuillez entrer un email valide";
     handleErrors({ element: email, name: "email", message });
   }
