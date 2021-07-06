@@ -41,18 +41,19 @@ modalClose.forEach((btn) => btn.addEventListener("click", closeModal));
 // is a radio btn checked ?
 const isRadioChecked = (arr) => {
   let res = false;
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i].type === "radio" && arr[i].checked) {
+  arr.forEach((element) => {
+    if (element.type === "radio" && element.checked) {
       res = true;
     }
-  }
+  });
+
   return res;
 };
 
 const resetModal = () => {
   // reset error messages
   document.querySelectorAll(".err-txt").forEach((element) => {
-    element.style.display = "none";
+    element.innerHTML = "";
   });
 
   // reset border color
@@ -99,7 +100,6 @@ const validate = () => {
   const handleErrors = ({ element, name, message }) => {
     element.parentElement.dataset.errorVisible = true;
     const errorLabel = document.getElementById(`label-${name}`);
-    errorLabel.style.display = "inline";
     errorLabel.innerHTML = message;
     valid = false;
   };
@@ -146,14 +146,12 @@ const validate = () => {
   }
 
   if (!isRadioChecked(radios)) {
-    document.getElementById("messsage-checked").style.display = "inline";
     document.getElementById("messsage-checked").innerHTML =
       "Veuillez choisir une option.";
     valid = false;
   }
 
   if (!checkBox) {
-    document.getElementById("messsage-checkbox1").style.display = "inline";
     document.getElementById("messsage-checkbox1").innerHTML =
       "Vous devez vérifier que vous acceptez les termes et conditions.";
     valid = false;
@@ -170,18 +168,11 @@ const validate = () => {
       btnClose.addEventListener("click", closeModal);
     }
 
-    // reset form input values
-    document.querySelectorAll(".text-control").forEach((element) => {
-      element.value = "";
-    });
-
-    // reset form radio values
+    // TODO: send each formInputs value somewhere to be saved
+    // then reset inputs
     radios.forEach((element) => {
       element.checked = false;
     });
-
-    // TODO: send each formInputs value somewhere to be saved
-    // then reset inputs
     document
       .querySelectorAll(".text-control")
       .forEach((input) => (input.value = ""));
